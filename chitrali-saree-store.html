@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Chitrali Saree Store – Handcrafted luxury sarees celebrating India's textile heritage. Banarasi, Bridal, Silk and more."/>
+  <meta name="keywords" content="saree, luxury saree, Banarasi saree, bridal saree, silk saree, handloom, Varanasi"/>
+  <title>Chitrali Saree Store | Elegance Woven Into Every Thread</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ============================
+       CSS VARIABLES & RESET
+    ============================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ivory:    #F8F5F2;
+      --maroon:   #6B1E2B;
+      --maroon-d: #4E1520;
+      --gold:     #C8A96A;
+      --gold-l:   #E2CFA0;
+      --beige:    #EFE6DD;
+      --charcoal: #2C2C2C;
+      --text-muted: #7A6A65;
+      --white:    #FFFFFF;
+      --shadow-sm: 0 4px 20px rgba(107,30,43,0.08);
+      --shadow-md: 0 8px 40px rgba(107,30,43,0.12);
+      --shadow-lg: 0 16px 60px rgba(107,30,43,0.18);
+      --radius:   16px;
+      --radius-sm: 10px;
+      --serif:    'Playfair Display', Georgia, serif;
+      --sans:     'Poppins', sans-serif;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--ivory);
+      color: var(--charcoal);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; font-family: var(--sans); border: none; }
+
+    /* ============================
+       LOADING SCREEN
+    ============================ */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--maroon);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-logo {
+      font-family: var(--serif);
+      font-size: 1.6rem; font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 2rem;
+    }
+    .loader-bar {
+      width: 120px; height: 2px;
+      background: rgba(200,169,106,0.25);
+      border-radius: 2px; overflow: hidden;
+    }
+    .loader-fill {
+      height: 100%; width: 0;
+      background: var(--gold);
+      border-radius: 2px;
+      animation: loadFill 1.5s ease forwards;
+    }
+    @keyframes loadFill { to { width: 100%; } }
+
+    /* ============================
+       NAVIGATION
+    ============================ */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.1rem 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(248,245,242,0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(200,169,106,0.15);
+      transition: background var(--transition), box-shadow var(--transition), padding var(--transition);
+    }
+    #navbar.scrolled {
+      background: rgba(248,245,242,0.96);
+      box-shadow: var(--shadow-sm);
+      padding: 0.75rem 5%;
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--maroon);
+      letter-spacing: 0.08em;
+      line-height: 1.25;
+    }
+    .nav-logo span { display: block; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; }
+    .nav-links {
+      display: flex; gap: 2.5rem; align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em;
+      color: var(--charcoal); text-transform: uppercase;
+      position: relative; transition: color var(--transition);
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 100%;
+      height: 1.5px; background: var(--gold);
+      transition: right var(--transition);
+    }
+    .nav-links a:hover { color: var(--maroon); }
+    .nav-links a:hover::after { right: 0; }
+    .btn-nav {
+      background: var(--maroon);
+      color: var(--white); border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 2px 12px rgba(107,30,43,0.3);
+    }
+    .btn-nav:hover { background: var(--maroon-d); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(107,30,43,0.4); }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--maroon); border-radius: 2px; transition: var(--transition); }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed; top: 72px; left: 0; right: 0; z-index: 999;
+      background: rgba(248,245,242,0.98);
+      backdrop-filter: blur(16px);
+      padding: 1.5rem 5% 2rem;
+      border-bottom: 1px solid rgba(200,169,106,0.15);
+      transform: translateY(-10px);
+      opacity: 0;
+      transition: var(--transition);
+      box-shadow: var(--shadow-md);
+    }
+    .mobile-menu.open { display: block; transform: translateY(0); opacity: 1; }
+    .mobile-menu a { display: block; padding: 0.8rem 0; font-size: 1rem; font-weight: 500; color: var(--charcoal); border-bottom: 1px solid rgba(200,169,106,0.12); letter-spacing: 0.05em; }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu .btn-nav { margin-top: 1rem; display: inline-block; }
+
+    /* ============================
+       HERO SECTION
+    ============================ */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(160deg, rgba(107,30,43,0.72) 0%, rgba(44,20,28,0.55) 50%, rgba(200,169,106,0.2) 100%),
+        url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1600&q=80') center/cover no-repeat;
+      transform: scale(1.04);
+      transition: transform 8s ease;
+    }
+    #hero:hover .hero-bg { transform: scale(1.0); }
+
+    /* Decorative pattern overlay */
+    .hero-pattern {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(200,169,106,0.08) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 780px; padding: 0 1.5rem;
+      animation: heroFadeIn 1.2s ease forwards;
+      opacity: 0;
+    }
+    @keyframes heroFadeIn { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(24px); } }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(200,169,106,0.18);
+      border: 1px solid rgba(200,169,106,0.4);
+      backdrop-filter: blur(8px);
+      color: var(--gold-l);
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 1.75rem;
+    }
+    .hero-badge::before { content: '✦'; font-size: 0.6rem; }
+
+    .hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 700; line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.25);
+    }
+    .hero-h1 em { font-style: italic; color: var(--gold-l); display: block; }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      color: rgba(255,255,255,0.82);
+      max-width: 520px; margin: 0 auto 2.5rem;
+      font-weight: 300; line-height: 1.8;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--maroon-d);
+      padding: 0.85rem 2.2rem;
+      border-radius: 50px;
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em;
+      transition: var(--transition);
+      box-shadow: 0 4px 20px rgba(200,169,106,0.4);
+      position: relative; overflow: hidden;
+    }
+    .btn-primary::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0);
+      transition: var(--transition);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(200,169,106,0.5); }
+    .btn-primary:hover::after { background: rgba(255,255,255,0.1); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+      padding: 0.85rem 2.2rem;
+      border-radius: 50px;
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      backdrop-filter: blur(8px);
+      transition: var(--transition);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.7); transform: translateY(-2px); }
+
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      color: rgba(255,255,255,0.5); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    .hero-scroll-line { width: 1px; height: 36px; background: rgba(255,255,255,0.3); }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+    /* ============================
+       MARQUEE
+    ============================ */
+    .marquee-wrap {
+      background: var(--maroon);
+      padding: 0.9rem 0;
+      overflow: hidden;
+      border-top: 2px solid var(--gold);
+      border-bottom: 2px solid var(--gold);
+    }
+    .marquee-track {
+      display: flex; gap: 2.5rem;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    .marquee-item {
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold-l);
+      white-space: nowrap;
+    }
+    .marquee-dot { color: rgba(200,169,106,0.4); font-size: 0.5rem; align-self: center; }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* ============================
+       SECTION COMMON
+    ============================ */
+    section { padding: 6rem 5%; }
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+    .section-eyebrow::before { content: '— '; }
+    .section-eyebrow::after  { content: ' —'; }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700; line-height: 1.2;
+      color: var(--maroon); margin-bottom: 1rem;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .section-body {
+      font-size: 0.9rem; color: var(--text-muted);
+      max-width: 520px; line-height: 1.9; font-weight: 300;
+    }
+    .text-center { text-align: center; }
+    .text-center .section-body { margin: 0 auto; }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ============================
+       COLLECTIONS
+    ============================ */
+    #collections { background: var(--ivory); }
+    .collections-inner { max-width: 1200px; margin: 0 auto; }
+    .collections-header { text-align: center; margin-bottom: 4rem; }
+
+    .collections-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+    .coll-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(200,169,106,0.12);
+      transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+    }
+    .coll-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+    .coll-card:hover .coll-img { transform: scale(1.08); }
+
+    .coll-img-wrap { overflow: hidden; aspect-ratio: 4/5; position: relative; }
+    .coll-img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .coll-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4.5rem;
+      transition: transform 0.6s ease;
+    }
+    .bg-bana { background: linear-gradient(145deg, #2d1008 0%, #6B1E2B 60%, #C8A96A 100%); }
+    .bg-brid { background: linear-gradient(145deg, #1a0a1a 0%, #3d1545 60%, #C8A96A 100%); }
+    .bg-silk { background: linear-gradient(145deg, #0a1a10 0%, #1a4030 60%, #C8A96A 100%); }
+
+    .coll-tag {
+      position: absolute; top: 1rem; left: 1rem;
+      background: rgba(200,169,106,0.92);
+      color: var(--maroon-d);
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.3rem 0.8rem; border-radius: 50px;
+      backdrop-filter: blur(4px);
+    }
+
+    .coll-body { padding: 1.4rem 1.5rem 1.6rem; }
+    .coll-name {
+      font-family: var(--serif);
+      font-size: 1.25rem; font-weight: 600; color: var(--maroon);
+      margin-bottom: 0.25rem;
+    }
+    .coll-price {
+      font-size: 0.78rem; color: var(--gold); font-weight: 600;
+      letter-spacing: 0.04em; margin-bottom: 0.7rem;
+    }
+    .coll-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.2rem; }
+    .btn-card {
+      background: transparent;
+      border: 1.5px solid var(--maroon);
+      color: var(--maroon);
+      padding: 0.55rem 1.4rem;
+      border-radius: 50px;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em;
+      transition: var(--transition);
+    }
+    .btn-card:hover { background: var(--maroon); color: var(--white); }
+
+    /* ============================
+       ABOUT SECTION
+    ============================ */
+    #about { background: var(--beige); }
+    .about-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+
+    .stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin: 2.5rem 0;
+    }
+    .stat-card {
+      background: var(--white); border-radius: var(--radius-sm);
+      padding: 1.4rem 1.5rem;
+      border: 1px solid rgba(200,169,106,0.2);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition);
+    }
+    .stat-card:hover { transform: translateY(-4px); }
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 2.4rem; font-weight: 700;
+      color: var(--maroon); line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem; color: var(--text-muted);
+      margin-top: 0.3rem; font-weight: 400; letter-spacing: 0.05em;
+    }
+
+    .pillars-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem; margin-top: 1.5rem;
+    }
+    .pillar-chip {
+      background: var(--white);
+      border: 1px solid rgba(200,169,106,0.2);
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 0.75rem;
+      font-size: 0.72rem; font-weight: 500;
+      color: var(--maroon); text-align: center;
+      line-height: 1.4;
+      transition: var(--transition);
+    }
+    .pillar-chip:hover { background: var(--maroon); color: var(--white); border-color: var(--maroon); }
+
+    .about-quote {
+      margin-top: 2rem;
+      background: var(--white);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .about-quote blockquote {
+      font-family: var(--serif);
+      font-size: 1rem; font-style: italic;
+      color: var(--charcoal); line-height: 1.7;
+    }
+    .about-quote cite {
+      display: block; margin-top: 0.75rem;
+      font-size: 0.7rem; font-style: normal;
+      font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* Visual panel */
+    .about-visual {
+      display: grid; grid-template-rows: auto auto;
+      gap: 1rem;
+    }
+    .visual-main {
+      background: linear-gradient(145deg, var(--maroon-d), #8B2535);
+      border-radius: var(--radius);
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem;
+      box-shadow: var(--shadow-md);
+      position: relative; overflow: hidden;
+    }
+    .visual-main::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 40%, rgba(200,169,106,0.25), transparent 65%);
+    }
+    .visual-accent {
+      background: var(--gold);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .visual-accent-icon { font-size: 2rem; }
+    .visual-accent-text { font-family: var(--serif); font-size: 1rem; font-weight: 600; color: var(--maroon-d); }
+    .visual-accent-sub { font-size: 0.72rem; color: var(--maroon-d); opacity: 0.7; }
+
+    /* ============================
+       TESTIMONIALS
+    ============================ */
+    #testimonials { background: var(--maroon); }
+    .testi-header { text-align: center; margin-bottom: 3.5rem; }
+    .testi-header .section-eyebrow { color: var(--gold-l); }
+    .testi-header .section-title { color: var(--white); }
+
+    .testi-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .testi-card {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(200,169,106,0.2);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .testi-card::before {
+      content: '"';
+      position: absolute; top: -0.5rem; right: 1.5rem;
+      font-family: var(--serif);
+      font-size: 7rem; font-weight: 700;
+      color: rgba(200,169,106,0.1); line-height: 1;
+      pointer-events: none;
+    }
+    .testi-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); }
+    .stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .testi-text {
+      font-size: 0.88rem; color: rgba(255,255,255,0.85);
+      line-height: 1.8; font-style: italic; font-family: var(--serif);
+      margin-bottom: 1.5rem; font-weight: 400;
+    }
+    .testi-author { display: flex; align-items: center; gap: 0.75rem; }
+    .testi-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem; color: var(--maroon-d);
+      flex-shrink: 0;
+    }
+    .testi-name { font-size: 0.82rem; font-weight: 600; color: var(--gold-l); }
+    .testi-role { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
+
+    /* ============================
+       CONTACT SECTION
+    ============================ */
+    #contact { background: var(--ivory); }
+    .contact-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .contact-info { padding-top: 0.5rem; }
+    .contact-cards { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; margin-bottom: 2rem; }
+    .contact-card {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--white);
+      border: 1px solid rgba(200,169,106,0.15);
+      border-radius: var(--radius-sm); padding: 1rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .contact-card:hover { box-shadow: var(--shadow-md); transform: translateX(4px); }
+    .contact-card-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--beige);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+      border: 1px solid rgba(200,169,106,0.2);
+    }
+    .contact-card-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+    .contact-card-val { font-size: 0.85rem; color: var(--charcoal); font-weight: 400; }
+
+    /* FORM */
+    .contact-form-box {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(200,169,106,0.1);
+    }
+    .form-title {
+      font-family: var(--serif);
+      font-size: 1.5rem; font-weight: 600; color: var(--maroon);
+      margin-bottom: 0.3rem;
+    }
+    .form-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.75rem; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+    .form-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+    .form-input, .form-textarea {
+      background: var(--ivory);
+      border: 1.5px solid rgba(200,169,106,0.2);
+      border-radius: var(--radius-sm);
+      color: var(--charcoal);
+      padding: 0.75rem 1rem;
+      font-family: var(--sans); font-size: 0.85rem; font-weight: 300;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      width: 100%;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,169,106,0.12);
+    }
+    .form-input.error { border-color: #e05252; }
+    .form-textarea { resize: vertical; min-height: 110px; }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(44,44,44,0.3); }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--maroon);
+      color: var(--white);
+      padding: 0.9rem;
+      border-radius: 50px;
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em;
+      transition: var(--transition);
+      box-shadow: 0 4px 20px rgba(107,30,43,0.3);
+      margin-top: 0.25rem;
+      position: relative; overflow: hidden;
+    }
+    .btn-submit:hover { background: var(--maroon-d); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(107,30,43,0.4); }
+    .btn-submit:active { transform: scale(0.98); }
+    .form-success {
+      display: none;
+      text-align: center; padding: 1.25rem;
+      background: rgba(200,169,106,0.1);
+      border: 1px solid var(--gold);
+      border-radius: var(--radius-sm);
+      margin-top: 1rem;
+      font-family: var(--serif); font-style: italic;
+      color: var(--maroon); font-size: 0.95rem;
+    }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.65);
+      padding: 4rem 5% 2rem;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem; padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(200,169,106,0.12);
+      margin-bottom: 2rem;
+    }
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+    .footer-logo span { display: block; font-size: 0.6rem; font-weight: 400; letter-spacing: 0.25em; color: rgba(200,169,106,0.6); }
+    .footer-tagline { font-size: 0.82rem; line-height: 1.7; max-width: 240px; }
+    .footer-social { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+    .social-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(200,169,106,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; transition: var(--transition);
+      text-decoration: none;
+    }
+    .social-btn:hover { background: var(--gold); border-color: var(--gold); transform: translateY(-2px); }
+
+    .footer-col-title {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.25rem;
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links a {
+      font-size: 0.82rem; color: rgba(255,255,255,0.55);
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--gold); padding-left: 4px; }
+
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.72rem; color: rgba(255,255,255,0.3);
+      flex-wrap: wrap; gap: 0.5rem;
+    }
+    .footer-bottom span { color: var(--gold); opacity: 0.7; }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 1024px) {
+      .collections-grid { grid-template-columns: 1fr 1fr; }
+      .about-inner { gap: 3rem; }
+      .contact-inner { gap: 3rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 4.5rem 5%; }
+      .nav-links, .btn-nav { display: none; }
+      .hamburger { display: flex; }
+      .collections-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-visual { order: -1; }
+      .testi-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+      .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-h1 { font-size: 2.4rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .pillars-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ============================
+       SCROLL TO TOP
+    ============================ */
+    #scrollTop {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 500;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--maroon); color: var(--white);
+      border: 2px solid var(--gold);
+      font-size: 1.2rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-md);
+      opacity: 0; visibility: hidden;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    #scrollTop.show { opacity: 1; visibility: visible; }
+    #scrollTop:hover { background: var(--maroon-d); transform: translateY(-3px); }
+  </style>
+</head>
+<body>
+
+<!-- ======== LOADER ======== -->
+<div id="loader" role="status" aria-label="Loading">
+  <div class="loader-logo">CHITRALI<br>SAREE STORE</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- ======== NAVBAR ======== -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <a href="#hero" class="nav-logo" aria-label="Chitrali Saree Store Home">
+    CHITRALI
+    <span>SAREE STORE</span>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#collections">Collections</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="btn-nav" onclick="scrollToSection('contact')" aria-label="Book a Visit">Book a Visit</button>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+  <a href="#hero" onclick="closeMobile()">Home</a>
+  <a href="#collections" onclick="closeMobile()">Collections</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#testimonials" onclick="closeMobile()">Testimonials</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+  <button class="btn-nav" onclick="scrollToSection('contact'); closeMobile()">Book a Visit</button>
+</div>
+
+<!-- ======== HERO ======== -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-pattern" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Luxury Handloom Sarees Since Years</div>
+    <h1 class="hero-h1">Elegance Woven <em>Into Every Thread</em></h1>
+    <p class="hero-sub">Discover handcrafted sarees that celebrate tradition with timeless sophistication.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="scrollToSection('collections')">Explore Collection</button>
+      <button class="btn-secondary" onclick="scrollToSection('contact')">Book Appointment</button>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ======== MARQUEE ======== -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item">✨ Pure Handloom</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Premium Silk</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Banarasi Collection</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Bridal Sarees</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Festive Wear</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Trusted Since Years</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Luxury Drapes</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Timeless Elegance</span>
+    <span class="marquee-dot">◆</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee-item">✨ Pure Handloom</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Premium Silk</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Banarasi Collection</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Bridal Sarees</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Festive Wear</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Trusted Since Years</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Luxury Drapes</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">✨ Timeless Elegance</span>
+    <span class="marquee-dot">◆</span>
+  </div>
+</div>
+
+<!-- ======== COLLECTIONS ======== -->
+<section id="collections" aria-label="Featured Collections">
+  <div class="collections-inner">
+    <div class="collections-header reveal">
+      <span class="section-eyebrow">Our Finest</span>
+      <h2 class="section-title">Featured <em>Collections</em></h2>
+      <p class="section-body">Each collection is a tribute to India's extraordinary weaving traditions, reimagined for the modern woman.</p>
+    </div>
+    <div class="collections-grid">
+
+      <!-- Card 1 -->
+      <article class="coll-card reveal reveal-delay-1" tabindex="0" aria-label="Banarasi Heritage Collection">
+        <div class="coll-img-wrap">
+          <div class="coll-img-placeholder bg-bana">🥻</div>
+          <span class="coll-tag">Bestseller</span>
+        </div>
+        <div class="coll-body">
+          <div class="coll-name">Banarasi Heritage</div>
+          <div class="coll-price">Starting from ₹5,999</div>
+          <p class="coll-desc">Rich handcrafted Banarasi sarees woven with timeless artistry and golden zari.</p>
+          <button class="btn-card" onclick="scrollToSection('contact')">View Collection</button>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="coll-card reveal reveal-delay-2" tabindex="0" aria-label="Bridal Royal Edit Collection">
+        <div class="coll-img-wrap">
+          <div class="coll-img-placeholder bg-brid">💍</div>
+          <span class="coll-tag">Exclusive</span>
+        </div>
+        <div class="coll-body">
+          <div class="coll-name">Bridal Royal Edit</div>
+          <div class="coll-price">Starting from ₹12,999</div>
+          <p class="coll-desc">Elegant bridal sarees crafted for unforgettable celebrations and eternal memories.</p>
+          <button class="btn-card" onclick="scrollToSection('contact')">Explore</button>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="coll-card reveal reveal-delay-3" tabindex="0" aria-label="Silk Luxury Collection">
+        <div class="coll-img-wrap">
+          <div class="coll-img-placeholder bg-silk">🌿</div>
+          <span class="coll-tag">Premium</span>
+        </div>
+        <div class="coll-body">
+          <div class="coll-name">Silk Luxury Collection</div>
+          <div class="coll-price">Starting from ₹7,499</div>
+          <p class="coll-desc">Premium silk sarees designed for grace, sophistication and lasting impressions.</p>
+          <button class="btn-card" onclick="scrollToSection('contact')">Shop Now</button>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======== ABOUT ======== -->
+<section id="about" aria-label="About Chitrali Saree Store">
+  <div class="about-inner">
+
+    <!-- Left: Content -->
+    <div>
+      <span class="section-eyebrow reveal">Our Story</span>
+      <h2 class="section-title reveal reveal-delay-1">The Story of <em>CHITRALI</em></h2>
+      <p class="section-body reveal reveal-delay-2">CHITRALI SAREE STORE is dedicated to preserving India's rich textile heritage by offering carefully curated sarees crafted with elegance, authenticity, and timeless beauty. Every piece reflects exceptional craftsmanship and celebrates the artistry of traditional weaving.</p>
+
+      <div class="stats-grid reveal reveal-delay-2">
+        <div class="stat-card">
+          <div class="stat-number">5000+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">250+</div>
+          <div class="stat-label">Exclusive Designs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">12+</div>
+          <div class="stat-label">Fabric Origins</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">Years of Trust</div>
+        </div>
+      </div>
+
+      <div class="pillars-grid reveal reveal-delay-3">
+        <div class="pillar-chip">Luxury Quality</div>
+        <div class="pillar-chip">Authentic Handloom</div>
+        <div class="pillar-chip">Premium Fabrics</div>
+        <div class="pillar-chip">Trusted Craftsmanship</div>
+        <div class="pillar-chip">Personalized Service</div>
+        <div class="pillar-chip">Timeless Style</div>
+      </div>
+
+      <div class="about-quote reveal reveal-delay-4">
+        <blockquote>"Every saree tells a story of heritage, elegance, and craftsmanship. Our mission is to bring that story to every woman."</blockquote>
+        <cite>— Founder, Chitrali Saree Store</cite>
+      </div>
+    </div>
+
+    <!-- Right: Visual -->
+    <div class="about-visual reveal reveal-delay-2">
+      <div class="visual-main" aria-hidden="true">🥻</div>
+      <div class="visual-accent">
+        <div class="visual-accent-icon">✦</div>
+        <div>
+          <div class="visual-accent-text">Handpicked from India's Finest Weavers</div>
+          <div class="visual-accent-sub">Varanasi · Kanchipuram · Chanderi · Murshidabad</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======== TESTIMONIALS ======== -->
+<section id="testimonials" aria-label="Customer Testimonials">
+  <div class="testi-header reveal">
+    <span class="section-eyebrow">What Our Clients Say</span>
+    <h2 class="section-title">Voices of <em>Elegance</em></h2>
+  </div>
+  <div class="testi-grid">
+
+    <article class="testi-card reveal reveal-delay-1">
+      <div class="stars" aria-label="5 stars">★★★★★</div>
+      <p class="testi-text">"The quality exceeded every expectation. The saree arrived beautifully packaged and the fabric is absolutely divine."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" aria-hidden="true">PS</div>
+        <div>
+          <div class="testi-name">Priya Sharma</div>
+          <div class="testi-role">Loyal Customer</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="testi-card reveal reveal-delay-2">
+      <div class="stars" aria-label="5 stars">★★★★★</div>
+      <p class="testi-text">"My bridal saree was absolutely stunning. Every woman stopped to compliment me on my special day. Pure magic!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar" aria-hidden="true">NV</div>
+        <div>
+          <div class="testi-name">Neha Verma</div>
+          <div class="testi-role">Bride</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="testi-card reveal reveal-delay-3">
+      <div class="stars" aria-label="5 stars">★★★★★</div>
+      <p class="testi-text">"Excellent collection and outstanding customer service. They helped me find the perfect saree for my occasion."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" aria-hidden="true">AS</div>
+        <div>
+          <div class="testi-name">Aditi Singh</div>
+          <div class="testi-role">Happy Customer</div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ======== CONTACT ======== -->
+<section id="contact" aria-label="Contact and Enquiry">
+  <div class="contact-inner">
+
+    <!-- Info side -->
+    <div class="contact-info">
+      <span class="section-eyebrow reveal">Get in Touch</span>
+      <h2 class="section-title reveal reveal-delay-1">Begin Your <em>Journey</em></h2>
+      <p class="section-body reveal reveal-delay-2">Reserve a private consultation or enquire about a bespoke order. Our team responds within 24 hours.</p>
+
+      <div class="contact-cards reveal reveal-delay-2">
+        <div class="contact-card">
+          <div class="contact-card-icon" aria-hidden="true">✉</div>
+          <div>
+            <div class="contact-card-label">Email</div>
+            <div class="contact-card-val">hello@chitralisareestore.com</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon" aria-hidden="true">☎</div>
+          <div>
+            <div class="contact-card-label">Phone</div>
+            <div class="contact-card-val">+91 98765 43210</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon" aria-hidden="true">📍</div>
+          <div>
+            <div class="contact-card-label">Location</div>
+            <div class="contact-card-val">Varanasi, Uttar Pradesh, India</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form side -->
+    <div class="contact-form-box reveal reveal-delay-2">
+      <div class="form-title">Send an Enquiry</div>
+      <p class="form-sub">We would love to help you find your perfect saree.</p>
+      <form id="enquiryForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="fname">Full Name *</label>
+            <input class="form-input" type="text" id="fname" name="name" placeholder="Your name" required autocomplete="name"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fphone">Phone *</label>
+            <input class="form-input" type="tel" id="fphone" name="phone" placeholder="+91 00000 00000" required autocomplete="tel"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="femail">Email Address *</label>
+          <input class="form-input" type="email" id="femail" name="email" placeholder="you@example.com" required autocomplete="email"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fmsg">Message</label>
+          <textarea class="form-textarea" id="fmsg" name="message" placeholder="Tell us about the saree you're looking for..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Send Enquiry ✦</button>
+        <div class="form-success" id="formSuccess" role="alert">
+          🙏 Thank you! We will get back to you within 24 hours.
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======== FOOTER ======== -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">CHITRALI<span>SAREE STORE</span></div>
+      <p class="footer-tagline">Crafting timeless elegance through India's finest sarees. Heritage in every thread.</p>
+      <div class="footer-social" aria-label="Social media links">
+        <a href="#" class="social-btn" aria-label="Instagram">📸</a>
+        <a href="#" class="social-btn" aria-label="Facebook">📘</a>
+        <a href="#" class="social-btn" aria-label="WhatsApp">💬</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#collections">Collections</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact">Book a Visit</a>
+      </nav>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-links">
+        <a href="mailto:hello@chitralisareestore.com">hello@chitralisareestore.com</a>
+        <a href="tel:+919876543210">+91 98765 43210</a>
+        <span style="color:rgba(255,255,255,0.4); font-size:0.8rem;">Varanasi, Uttar Pradesh, India</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 <span>CHITRALI SAREE STORE.</span> All Rights Reserved.</span>
+    <span style="color:rgba(200,169,106,0.4);">Made with ♥ for every Indian woman</span>
+  </div>
+</footer>
+
+<!-- Scroll to Top -->
+<button id="scrollTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ======== JAVASCRIPT ======== -->
+<script>
+  // ---- LOADER ----
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const loader = document.getElementById('loader');
+      if (loader) loader.classList.add('hidden');
+    }, 1700);
+  });
+
+  // ---- NAVBAR SCROLL ----
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+    document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 400);
+  }, { passive: true });
+
+  // ---- HAMBURGER MENU ----
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  function closeMobile() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!navbar.contains(e.target) && !mobileMenu.contains(e.target)) closeMobile();
+  });
+
+  // ---- SMOOTH SCROLL ----
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); closeMobile(); }
+    });
+  });
+
+  // ---- REVEAL ON SCROLL ----
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ---- FORM VALIDATION ----
+  document.getElementById('enquiryForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let valid = true;
+
+    const fields = [
+      { id: 'fname',  validate: v => v.trim().length >= 2 },
+      { id: 'fphone', validate: v => /^[\d\s\+\-]{7,15}$/.test(v.trim()) },
+      { id: 'femail', validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+    ];
+
+    fields.forEach(f => {
+      const input = document.getElementById(f.id);
+      const ok = f.validate(input.value);
+      input.classList.toggle('error', !ok);
+      if (!ok) { valid = false; input.focus(); }
+    });
+
+    if (valid) {
+      const btn = this.querySelector('.btn-submit');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      setTimeout(() => {
+        document.getElementById('formSuccess').style.display = 'block';
+        this.reset();
+        btn.textContent = 'Send Enquiry ✦';
+        btn.disabled = false;
+        setTimeout(() => { document.getElementById('formSuccess').style.display = 'none'; }, 6000);
+      }, 1200);
+    }
+  });
+
+  // Remove error state on input
+  document.querySelectorAll('.form-input').forEach(input => {
+    input.addEventListener('input', () => input.classList.remove('error'));
+  });
+
+  // ---- RIPPLE EFFECT ON BUTTONS ----
+  document.querySelectorAll('.btn-primary, .btn-submit, .btn-nav').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const ripple = document.createElement('span');
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.cssText = `
+        position:absolute; width:${size}px; height:${size}px;
+        border-radius:50%; background:rgba(255,255,255,0.25);
+        top:${e.clientY - rect.top - size/2}px;
+        left:${e.clientX - rect.left - size/2}px;
+        transform:scale(0); pointer-events:none;
+        animation:ripple 0.5s ease forwards;
+      `;
+      if (!this.style.position || this.style.position === 'static') {
+        this.style.position = 'relative';
+        this.style.overflow = 'hidden';
+      }
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    });
+  });
+
+  // Ripple keyframe
+  const rippleStyle = document.createElement('style');
+  rippleStyle.textContent = '@keyframes ripple{to{transform:scale(2.5);opacity:0}}';
+  document.head.appendChild(rippleStyle);
+
+  // ---- STAT COUNTER ANIMATION ----
+  function animateCounter(el) {
+    const text = el.textContent;
+    const num = parseInt(text);
+    const suffix = text.replace(/[0-9]/g, '');
+    let current = 0;
+    const step = num / 60;
+    const timer = setInterval(() => {
+      current = Math.min(current + step, num);
+      el.textContent = Math.floor(current) + suffix;
+      if (current >= num) clearInterval(timer);
+    }, 20);
+  }
+
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.stat-number').forEach(animateCounter);
+        statObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const statsSection = document.querySelector('.stats-grid');
+  if (statsSection) statObserver.observe(statsSection);
+
+  // ---- REDUCED MOTION ----
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    document.querySelectorAll('.hero-content').forEach(el => el.style.animation = 'none');
+  }
+</script>
+
+</body>
+</html>
